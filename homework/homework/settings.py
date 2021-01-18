@@ -127,7 +127,5 @@ STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
 
 
-STATICFILES_DIRS = (
-    'mysite-ui/build/static',
-)
+
 
