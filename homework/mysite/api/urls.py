@@ -1,11 +1,13 @@
 from django.urls import path
 
 from rest_framework import routers
-from .views import StudentViewSet, Student_Lab_CourseViewSet
+from .views import StudentsViewSet, Student_Lab_CourseViewSet, CoursesViewSet, CoursesLabsViewSet
 
 router = routers.SimpleRouter()
-router.register('student', StudentViewSet, basename='student')
-router.register('lab', Student_Lab_CourseViewSet, basename='lab')
+router.register('students', StudentsViewSet, basename='students')
+router.register('labs', Student_Lab_CourseViewSet, basename='labs')
+router.register('courses', CoursesViewSet, basename='courses')
+router.register('courses-labs', CoursesLabsViewSet, basename='courses-labs')
 
 urlpatterns = []
 urlpatterns += router.urls

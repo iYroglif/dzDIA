@@ -13,3 +13,15 @@ def student_detail(request, id):
 
 def lab_detail(request, id):
     return render(request, 'index.html',{})
+
+def courses(request):
+    return render(request, 'index.html',{})
+
+def course_labs(request, id):
+    return render(request, 'index.html',{})
+
+def courses_labs(request, id):
+    return render(request, 'index.html',{})
+
+def students_edit(request):
+    return render(request, 'index.html',{})

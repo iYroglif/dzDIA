@@ -125,3 +125,4 @@ STATIC_ROOT = 'static'
 STATICFILES_DIRS = (
     'mysite-ui/build/static',
 )
+

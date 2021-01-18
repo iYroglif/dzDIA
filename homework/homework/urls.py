@@ -22,7 +22,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
     path('students/', views.students),
-    path('student/<int:id>/', views.student_detail),
-    path('lab/<int:id>/', views.lab_detail),
+    path('students/<int:id>/', views.student_detail),
+    path('labs/<int:id>/', views.lab_detail),
+    path('courses/', views.courses),
+    path('courses/<int:id>/', views.course_labs),
+    path('courses-labs/<int:id>/', views.courses_labs),
+    path('students-edit/', views.students_edit),
     path('api/', include('mysite.api.urls'))
 ]

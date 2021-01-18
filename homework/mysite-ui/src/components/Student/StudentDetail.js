@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-function StudentDetail({match}) {
+function StudentDetail({ match }) {
 
     const [student, setStudent] = useState({})
     const [labs, setLabs] = useState([])
@@ -11,7 +11,7 @@ function StudentDetail({match}) {
     useEffect(() => {
         axios({
             method: "GET",
-            url: `http://127.0.0.1:8000/api/student/${id}/`
+            url: `http://127.0.0.1:8000/api/students/${id}/`
         }).then(response => {
             setStudent(response.data)
             setLabs(response.data.labs)
@@ -20,19 +20,19 @@ function StudentDetail({match}) {
 
     return (
         <div>
-            Student with id {student.id}
-            <p>Student: <strong>{student.name}</strong></p>
-            <hr/>
-            <div className="row">
-                {labs.map(l => (
-                    <div className="col-md-4" key={l.id}>
-                        <h4>{l.issued}</h4>
-                        <p>{l.changed}</p>
-                        <p>{l.id}</p>
-                        <Link to={{pathname: `/lab/${l.id}`, fromDashboard: false}}>Детали</Link>
+            <hr />
+            <p>Студент: <strong>{student.surname} {student.name} {student.patronymic} </strong>{student.group}</p>
+            <hr />
+            {labs.map(l => (
+                <div className="card" key={l.id}>
+                    <div class="card-body">
+                        <h5 class="card-title">{l.course_lab.name}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Курс: {l.course_lab.course.name}</h6>
+                        <p class="card-text"><small class="text-muted">Выполнена: {l.completed}</small></p>
+                        <Link class="btn btn-primary" to={{ pathname: `/labs/${l.id}`, fromDashboard: false }}>Детали</Link>
                     </div>
-                ))}
-            </div>
+                </div>
+            ))}
         </div>
     );
 }
