@@ -1,29 +1,76 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
+import 'c3/c3.css';
+import c3 from 'c3/c3.min.js';
 
-function Reoprt() {
+function Report() {
 
     const [courseLabs, setSCourseLabs] = useState([])
 
     useEffect(() => {
         axios({
             method: "GET",
-            url: 'http://127.0.0.1:8000/api/students/'
+            url: 'http://127.0.0.1:8000/api/courses-labs/'
         }).then(response => {
-            setStudents(response.data)
+            setSCourseLabs(response.data)
         })
     }, [])
 
+    var courses = new Set()
+    var tmp = new Map()
+    courseLabs.map(cl => {
+        courses.add(cl.course.id)
+        tmp.set(cl.course.id, cl.course.name)
+    })
+
+    var xd = []
+    var data = ['Количество лабораторных работ']
+    Array.from(courses).map(cs => {
+        xd.push(tmp.get(cs))
+        data.push(0)
+        courseLabs.filter(cl => cl.course.id == cs).map(c => data[cs]++)
+    })
+
+    var chart = c3.generate({
+        data: {
+            columns: [
+                data
+            ]
+        },
+        axis: {
+            x: {
+                type: 'category',
+                categories: xd
+            }
+        }
+    });
+
+
     return (
-        <dev>
+        <div>
             <ul class="list-group">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Morbi leo risus</li>
-                <li class="list-group-item">Porta ac consectetur ac</li>
-                <li class="list-group-item">Vestibulum at eros</li>
+                {Array.from(courses).map(cs => (
+                    <li class="list-group-item"><h4>{tmp.get(cs)}</h4>
+                        <ul class="list-group">
+                            {courseLabs.filter(cl => cl.course.id == cs).map(c => (
+                                <li class="list-group-item" class="text-left"><h5>{c.name}</h5>
+                                    <ul class="list-group">
+                                        {c.labs.map(l => (
+                                            <li class="list-group-item">
+                                                <p><strong>Студент: </strong>{l.student.surname} {l.student.name} {l.student.patronymic} {l.student.group}</p>
+                                                <p><strong>Выполнена: </strong>{l.completed}</p>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </li>
+                            ))}
+                        </ul>
+                    </li>
+                ))}
             </ul>
-        </dev>
+            <div id="chart"></div>
+        </div>
     );
 }
 

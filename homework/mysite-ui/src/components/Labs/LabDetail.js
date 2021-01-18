@@ -21,8 +21,8 @@ function LabDetail({ match }) {
 
     return (
         <div>
-            <p><strong>{course_lab.name}</strong></p>
-            <p><strong>Курс:</strong> {course.name}</p>
+            <h4><strong>{course_lab.name}</strong></h4>
+            <h6><strong>Курс:</strong> {course.name}</h6>
             <p><strong>Задание:</strong> {course_lab.task}</p>
             <p><strong>Выдана:</strong> {lab.issued}</p>
             <p><strong>Выполнена:</strong> {lab.completed}</p>

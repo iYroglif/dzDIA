@@ -28,5 +28,6 @@ urlpatterns = [
     path('courses/<int:id>/', views.course_labs),
     path('courses-labs/<int:id>/', views.courses_labs),
     path('students-edit/', views.students_edit),
+    path('report/', views.report),
     path('api/', include('mysite.api.urls'))
 ]

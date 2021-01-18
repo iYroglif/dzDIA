@@ -10,6 +10,7 @@ import LabDetail from "./components/Labs/LabDetail";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import CourseLabDetail from './components/Courses/CourseLabDetail';
 import StudentsEdit from "./components/Student/StudentsEdit";
+import Report from './components/Report/Report';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/students/" exact component={Students} />
           <Route path="/courses/" exact component={Courses} />
           <Route path="/students-edit/" exact component={StudentsEdit} />
+          <Route path="/report/" exact component={Report} />
           <Switch>
             <Route path="/labs/:id" exact component={LabDetail} />
             <Route path="/students/:id" exact component={StudentDetail} />

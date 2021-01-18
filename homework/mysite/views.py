@@ -25,3 +25,6 @@ def courses_labs(request, id):
 
 def students_edit(request):
     return render(request, 'index.html',{})
+
+def report(request):
+    return render(request, 'index.html',{})

@@ -28,14 +28,26 @@ class TempCourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = '__all__'
 
+class TempStudent_Lab_CourseSerializer(serializers.ModelSerializer):
+
+    student = StudentSerializer()
+
+    class Meta:
+        model = Student_Lab_Course
+        fields = '__all__'
 
 class Course_LabSerializer(serializers.ModelSerializer):
 
     course = TempCourseSerializer()
+    labs = serializers.SerializerMethodField()
 
     class Meta:
         model = Course_Lab
         fields = '__all__'
+    
+    @staticmethod
+    def get_labs(obj):
+        return TempStudent_Lab_CourseSerializer(Student_Lab_Course.objects.filter(course_lab=obj), many=True).data
 
 
 class CourseSerializer(serializers.ModelSerializer):

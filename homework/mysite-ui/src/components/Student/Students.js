@@ -25,7 +25,8 @@ function Students() {
                 ))}
             </div>
             <div class="d-grid d-md-flex justify-content-md-end">
-                <Link class="btn btn-primary" role="button" to={{ pathname: `/students-edit/`, fromDashboard: false }}>Редактировать</Link>
+                <p></p>
+                <Link class="btn btn-primary" role="button" to={{ pathname: `/students-edit/`, fromDashboard: false }}>Добавить</Link>
             </div>
         </>
     );
