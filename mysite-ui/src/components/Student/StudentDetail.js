@@ -11,7 +11,7 @@ function StudentDetail({ match }) {
     useEffect(() => {
         axios({
             method: "GET",
-            url: `http://127.0.0.1:8000/api/students/${id}/`
+            url: `https://h0mew0rk.herokuapp.com/api/students/${id}/`
         }).then(response => {
             setStudent(response.data)
             setLabs(response.data.labs)

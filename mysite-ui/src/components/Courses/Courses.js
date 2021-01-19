@@ -10,7 +10,7 @@ function Courses() {
     useEffect(() => {
         axios({
             method: "GET",
-            url: 'http://127.0.0.1:8000/api/courses/'
+            url: 'https://h0mew0rk.herokuapp.com/api/courses/'
         }).then(response => {
             setCourses(response.data)
         })
