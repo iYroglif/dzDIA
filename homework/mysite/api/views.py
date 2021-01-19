@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 
-from .serializers import StudentSerializer, Student_Lab_CourseSerializer, StudentDetailSerializer, CourseSerializer, Course_LabSerializer
+from .serializers import StudentSerializer, Student_Lab_CourseSerializer, StudentDetailSerializer, CourseSerializer, Course_LabSerializer, DefStudent_Lab_CourseSerializer
 from ..models import Student, Student_Lab_Course, Course, Course_Lab
 
 class StudentsViewSet(viewsets.ModelViewSet):
@@ -31,3 +31,7 @@ class CoursesViewSet(viewsets.ModelViewSet):
 class CoursesLabsViewSet(viewsets.ModelViewSet):
     queryset = Course_Lab.objects.all()
     serializer_class = Course_LabSerializer
+
+class DefStudent_Lab_CourseViewSet(viewsets.ModelViewSet):
+    queryset = Student_Lab_Course.objects.all()
+    serializer_class = DefStudent_Lab_CourseSerializer
