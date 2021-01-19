@@ -17,7 +17,6 @@ function Students() {
                 initialValues={{ surname: '', name: '', patronymic: '', course: 1, group: '' }}
                 validate={() => { }}
                 onSubmit={values => {
-                    alert(JSON.stringify(csrftoken, null, 2));
                     axios({
                         method: 'post',
                         url: 'http://127.0.0.1:8000/api/students/',

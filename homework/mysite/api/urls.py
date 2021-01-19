@@ -1,7 +1,7 @@
 from django.urls import path
 
 from rest_framework import routers
-from .views import StudentsViewSet, Student_Lab_CourseViewSet, CoursesViewSet, CoursesLabsViewSet
+from .views import StudentsViewSet, Student_Lab_CourseViewSet, CoursesViewSet, CoursesLabsViewSet, DefStudent_Lab_CourseViewSet
 
 router = routers.SimpleRouter()
 router.register('students', StudentsViewSet, basename='students')

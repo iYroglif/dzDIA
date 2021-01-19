@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from ..models import Student, Student_Lab_Course, Course_Lab, Course
 
+
 class StudentSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -10,7 +11,7 @@ class StudentSerializer(serializers.ModelSerializer):
 
 
 class StudentDetailSerializer(serializers.ModelSerializer):
-    
+
     labs = serializers.SerializerMethodField()
 
     class Meta:
@@ -28,6 +29,7 @@ class TempCourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = '__all__'
 
+
 class TempStudent_Lab_CourseSerializer(serializers.ModelSerializer):
 
     student = StudentSerializer()
@@ -35,6 +37,7 @@ class TempStudent_Lab_CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student_Lab_Course
         fields = '__all__'
+
 
 class Course_LabSerializer(serializers.ModelSerializer):
 
@@ -44,7 +47,7 @@ class Course_LabSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course_Lab
         fields = '__all__'
-    
+
     @staticmethod
     def get_labs(obj):
         return TempStudent_Lab_CourseSerializer(Student_Lab_Course.objects.filter(course_lab=obj), many=True).data
@@ -66,6 +69,13 @@ class CourseSerializer(serializers.ModelSerializer):
 class Student_Lab_CourseSerializer(serializers.ModelSerializer):
 
     course_lab = Course_LabSerializer()
+
+    class Meta:
+        model = Student_Lab_Course
+        fields = '__all__'
+
+
+class DefStudent_Lab_CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Student_Lab_Course
