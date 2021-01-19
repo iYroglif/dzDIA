@@ -11,7 +11,7 @@ function CourseLabs({ match }) {
     useEffect(() => {
         axios({
             method: "GET",
-            url: `http://127.0.0.1:8000/api/courses/${id}/`
+            url: `https://h0mew0rk.herokuapp.com/api/courses/${id}/`
         }).then(response => {
             setCourse(response.data)
             setCourse_labs(response.data.course_labs)

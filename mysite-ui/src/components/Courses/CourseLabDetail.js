@@ -10,7 +10,7 @@ function CourseLabDetail({ match }) {
     useEffect(() => {
         axios({
             method: "GET",
-            url: `http://127.0.0.1:8000/api/courses-labs/${id}/`
+            url: `https://h0mew0rk.herokuapp.com/api/courses-labs/${id}/`
         }).then(response => {
             setCourseLab(response.data)
         })

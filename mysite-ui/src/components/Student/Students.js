@@ -10,7 +10,7 @@ function Students() {
     useEffect(() => {
         axios({
             method: "GET",
-            url: 'http://127.0.0.1:8000/api/students/'
+            url: 'https://h0mew0rk.herokuapp.com/api/students/'
         }).then(response => {
             setStudents(response.data)
         })
