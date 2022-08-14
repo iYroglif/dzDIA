@@ -11,7 +11,6 @@ export const Login = () => {
         })
     }
 
-
     return (
         <form onSubmit={handleSubmit}>
             <label for="username">Имя пользователя:</label>

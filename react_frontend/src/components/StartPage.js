@@ -1,5 +1,7 @@
+import { Typography } from '@mui/material';
+
 export const StartPage = () => {
-    return (
-        <h2>Стартовая страница</h2>
-    )
+    return (<>
+        <Typography>Стартовая страница1</Typography>
+    </>)
 }

@@ -1,5 +1,7 @@
+import { Typography } from '@mui/material';
+
 export const NotFound = () => {
     return (
-        <h2>Страница не существует</h2>
+        <Typography>Страница не существует</Typography>
     )
 }
