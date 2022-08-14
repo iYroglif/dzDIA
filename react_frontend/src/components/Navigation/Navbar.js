@@ -1,34 +1,24 @@
-import { Link } from 'react-router-dom';
+import { Link as LinkRouter } from 'react-router-dom';
+import { AppBar, Button, Toolbar, Typography, Container, Box, Link } from '@mui/material';
+import { UserLogin } from './UserLogin';
 
-export const Navbar = () => {
+export const Navbar = ({ user }) => {
 
     return (
-        <>
-            <Link to="/login">Войти</Link>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/">Мой сайт</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">Главная</a>
-                            </li>
-                            <li class="nav-item">
-                                <Link class="nav-link" to={{ pathname: `/students/`, fromDashboard: false }}>Студенты</Link>
-                            </li>
-                            <li class="nav-item">
-                                <Link class="nav-link" to={{ pathname: `/courses/`, fromDashboard: false }}>Курсы</Link>
-                            </li>
-                            <li class="nav-item">
-                                <Link class="nav-link" to={{ pathname: `/report/`, fromDashboard: false }}>Отчет</Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </>
+        <AppBar>
+            <Container>
+                <Toolbar>
+                    <Link component={LinkRouter} to="/" underline="none" color="inherit" mr={"5%"}>
+                        <Typography variant="h4" component="h1">Сайт</Typography>
+                    </Link>
+
+                    <Box sx={{ flexGrow: 1 }}>
+                        <Button component={LinkRouter} to="/courses">Мои курсы</Button>
+                    </Box>
+
+                    <UserLogin user={user} />
+                </Toolbar>
+            </Container>
+        </AppBar>
     );
 }
