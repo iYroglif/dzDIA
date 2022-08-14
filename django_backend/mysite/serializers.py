@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from mysite.models import Student, Student_Lab_Course, Course_Lab, Course
+from mysite.models import Student, Student_Lab_Course, Course_Lab, Course, Group
 from rest_framework import serializers
 
 
@@ -27,6 +27,24 @@ class StudentCourseLabSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class LabGroupsSerializer(serializers.ModelSerializer):
+    students = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Group
+        fields = ['id', 'name', 'students']
+
+    @staticmethod
+    def get_students(obj):
+        return StudentSerializer(Student.objects.filter(group_id=obj.pk), many=True).data
+
+
+class StudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = '__all__'
+
+
 class CourseSerializer(serializers.HyperlinkedModelSerializer):
 
     #course_labs = serializers.SerializerMethodField()
@@ -38,12 +56,6 @@ class CourseSerializer(serializers.HyperlinkedModelSerializer):
     # @staticmethod
     # def get_course_labs(obj):
     #    return Course_LabSerializer(Course_Lab.objects.filter(course=obj), many=True).data
-
-
-class StudentSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Student
-        fields = '__all__'
 
 
 class StudentDetailSerializer(serializers.ModelSerializer):

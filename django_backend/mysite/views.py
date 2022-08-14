@@ -1,7 +1,6 @@
-from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
-from mysite.models import Student, Student_Lab_Course, Course, Course_Lab
+from django.contrib.auth import authenticate, login, logout
+from mysite.models import Student, Student_Lab_Course, Course, Course_Lab, Group
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -26,6 +25,12 @@ class Login(APIView):
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+
+class Logout(APIView):
+    def get(self, request):
+        logout(request)
+        return Response(status=status.HTTP_200_OK)
 
 
 class StudentCourses(APIView):
@@ -58,36 +63,14 @@ class StudentLab(APIView):
         return Response(serializer.data)
 
 
-class CoursesViewSet(viewsets.ModelViewSet):
-    queryset = Course.objects.all()
-    serializer_class = serializers.CourseSerializer
-
-
-class StudentViewSet(viewsets.ModelViewSet):
-    queryset = Student.objects.all()
-    serializer_class = serializers.StudentSerializer
-
-    action_to_serializer = {
-        "retrieve": serializers.StudentDetailSerializer
-    }
-
-    def get_serializer_class(self):
-        return self.action_to_serializer.get(
-            self.action,
-            self.serializer_class
-        )
-
-
-class Student_Lab_CourseViewSet(viewsets.ModelViewSet):
-    queryset = Student_Lab_Course.objects.all()
-    serializer_class = serializers.Student_Lab_CourseSerializer
-
-
-class CoursesLabsViewSet(viewsets.ModelViewSet):
-    queryset = Course_Lab.objects.all()
-    serializer_class = serializers.Course_LabSerializer
-
-
-class DefStudent_Lab_CourseViewSet(viewsets.ModelViewSet):
-    queryset = Student_Lab_Course.objects.all()
-    serializer_class = serializers.DefStudent_Lab_CourseSerializer
+# @TODO добавить request.user.pk для преподавателя для простмотра только своих курсов
+class LabGroups(APIView):
+    def get(self, request, course_lab_id):
+        groups = Group.objects.raw('''SELECT *
+                                FROM (mysite_group
+                                INNER JOIN mysite_student ON mysite_student.group_id = mysite_group.id)
+                                INNER JOIN mysite_student_lab_course ON mysite_student_lab_course.student_id = mysite_student.id
+                                WHERE mysite_student_lab_course.course_lab_id = {}
+                                GROUP BY mysite_group.id'''.format(course_lab_id))
+        serializer = serializers.LabGroupsSerializer(groups, many=True)
+        return Response(serializer.data)
