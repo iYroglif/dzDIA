@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link, Routes, Route } from 'react-router-dom';
 import { LabGroups } from './LabGroups';
-import { Typography, Accordion, AccordionSummary, AccordionDetails, Button, Box, Divider } from '@mui/material';
+import { Typography, Accordion, AccordionSummary, AccordionDetails, Button, Box } from '@mui/material';
 
 export const CourseLabs = ({ courses }) => {
 
@@ -17,12 +17,6 @@ export const CourseLabs = ({ courses }) => {
     }, [params.id])
 
     useEffect(() => {
-        console.log('effect')
-        console.log('params.id')
-        console.log(params.id)
-        console.log('courses')
-        console.log(courses)
-
         if (params.id != null)
             setCurrentCourse(courses.find((item) => item.id == params.id))
     }, [courses, params.id])
