@@ -5,29 +5,25 @@ import { Grid, Card, CardContent, CardActions, Typography, Button } from '@mui/m
 export const Courses = ({ courses }) => {
     return (
         <>
-            {courses &&
-                <>
-                    <Routes>
-                        <Route path=":id/*" element={<CourseLabs courses={courses} />} />
-                    </Routes>
+            <Routes>
+                <Route path=":id/*" element={<CourseLabs courses={courses} />} />
+            </Routes>
 
-                    <Grid container spacing={3}>
-                        {courses.map((course) =>
-                            <Grid key={course.id} item>
-                                <Card>
-                                    <CardContent>
-                                        <Typography variant="h6">{course.name}</Typography>
-                                        <Typography variant="body1">Описание курса</Typography>
-                                    </CardContent>
-                                    <CardActions>
-                                        <Button component={Link} to={`/courses/${course.id}`}>Открыть</Button>
-                                    </CardActions>
-                                </Card>
-                            </Grid>
-                        )}
+            <Grid container spacing={3}>
+                {courses.map((course) =>
+                    <Grid key={course.id} item>
+                        <Card>
+                            <CardContent>
+                                <Typography variant="h6">{course.name}</Typography>
+                                <Typography variant="body1">Описание курса</Typography>
+                            </CardContent>
+                            <CardActions>
+                                <Button component={Link} to={`/courses/${course.id}`}>Открыть</Button>
+                            </CardActions>
+                        </Card>
                     </Grid>
-                </>
-            }
+                )}
+            </Grid>
         </>
     );
 }

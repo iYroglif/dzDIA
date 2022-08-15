@@ -14,9 +14,13 @@ export const CoursesRoutes = () => {
     }, [])
 
     return (
-        <Routes>
-            <Route path="/" element={<Courses courses={courses} />} />
-            <Route path=":id/*" element={<CourseLabs courses={courses} />} />
-        </Routes>
+        <>
+            {courses &&
+                <Routes>
+                    <Route path="/" element={<Courses courses={courses} />} />
+                    <Route path=":id/*" element={<CourseLabs courses={courses} />} />
+                </Routes>
+            }
+        </>
     )
 }
