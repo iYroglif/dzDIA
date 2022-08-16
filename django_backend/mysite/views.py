@@ -57,9 +57,12 @@ class StudentCourseLabs(APIView):
 
 class StudentLab(APIView):
     def get(self, request, course_lab_id):
-        lab = Student_Lab_Course.objects.get(
-            course_lab=course_lab_id, student=request.user.pk)
-        serializer = serializers.StudentCourseLabSerializer(lab)
+        lab = Student_Lab_Course.objects.raw('''SELECT *
+        FROM (mysite_student_lab_course
+        INNER JOIN mysite_course_lab ON mysite_course_lab.id = mysite_student_lab_course.course_lab_id)
+        INNER JOIN mysite_course ON mysite_course.id = mysite_course_lab.course_id
+        WHERE mysite_student_lab_course.course_lab_id = {} AND mysite_student_lab_course.student_id = {}'''.format(course_lab_id, request.user.pk))
+        serializer = serializers.StudentCourseLabSerializer(lab[0])
         return Response(serializer.data)
 
 

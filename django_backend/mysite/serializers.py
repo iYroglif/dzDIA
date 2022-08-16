@@ -21,7 +21,17 @@ class StudentCourseLabsSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'task']
 
 
+class StudentCourseLabSerializerCourseLab(serializers.ModelSerializer):
+    course = StudentCoursesSerializer()
+
+    class Meta:
+        model = Course_Lab
+        fields = ['name', 'task', 'course']
+
+
 class StudentCourseLabSerializer(serializers.ModelSerializer):
+    course_lab = StudentCourseLabSerializerCourseLab()
+
     class Meta:
         model = Student_Lab_Course
         fields = '__all__'
