@@ -6,6 +6,7 @@ from django.conf import settings
 
 class Course(models.Model):
     name = models.CharField('Название', max_length=100)
+    description = models.TextField('Описание', blank=True, default='')
 
     class Meta:
         verbose_name = 'Курс'

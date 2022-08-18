@@ -12,7 +12,7 @@ class CurrentUserName(serializers.ModelSerializer):
 class StudentCoursesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'description']
 
 
 class StudentCourseLabsSerializer(serializers.ModelSerializer):

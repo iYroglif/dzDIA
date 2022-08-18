@@ -14,10 +14,10 @@ export const Courses = ({ courses }) => {
             <Grid container spacing={3}>
                 {courses.map((course) =>
                     <Grid key={course.id} item>
-                        <Card>
+                        <Card sx={{ maxWidth: 450 }}>
                             <CardContent>
                                 <Typography variant="h6">{course.name}</Typography>
-                                <Typography variant="body1">Описание курса</Typography>
+                                <Typography variant="body1">{course.description}</Typography>
                             </CardContent>
                             <CardActions>
                                 <Box sx={{ flexGrow: 1 }}></Box>
