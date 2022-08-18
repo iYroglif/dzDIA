@@ -78,6 +78,8 @@ class Student_Lab_Course(models.Model):
     issued = models.DateTimeField('Выдана', auto_now_add=True)
     completed = models.DateTimeField('Выполнена', blank=True, null=True)
     changed = models.DateTimeField('Изменена', auto_now=True, null=True)
+    score = models.PositiveSmallIntegerField('Оценка', null=True, default=0)
+    comment = models.TextField('Комментарий', blank=True, default='')
 
     class Meta:
         verbose_name = 'Лабораторная работа студента'

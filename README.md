@@ -4,6 +4,7 @@ erDiagram
     Course {
         integer id
         varchar100 name
+        text description
     }
     Lecturer {
         integer id
@@ -34,6 +35,8 @@ erDiagram
         datetime changed
         bigint course_lab_id
         bigint student_id
+        smallint score
+        text comment
     }
     auth_user {
         integer id
