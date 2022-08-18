@@ -32,7 +32,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box bgcolor="background.default" color="text.primary" height="100%">
+      <Box bgcolor="background.default" color="text.primary" minHeight={"100%"}>
         <Navbar user={user} />
         <Container sx={{ pt: 10 }}>
           <Routes>
