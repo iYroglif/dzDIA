@@ -1,18 +1,22 @@
-import { useEffect, useState } from 'react';
-import { useParams, Link, Routes, Route } from 'react-router-dom';
-import { LabGroups } from './LabGroups';
+import { useEffect, useState, useContext } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { Typography, Accordion, AccordionSummary, AccordionDetails, Button, Box } from '@mui/material';
+import { UserContext } from '../../UserContext';
 
 export const CourseLabs = ({ courses }) => {
 
     const [courseLabs, setCourseLabs] = useState(null)
     const [currentCourse, setCurrentCourse] = useState(null)
     const params = useParams()
+    const userContext = useContext(UserContext);
 
     useEffect(() => {
         fetch(`/api/course-labs/${params.id}`).then((response) => {
             if (response.ok)
                 return response.json()
+            else
+                // @TODO обработка ошибки
+                alert('Произошла ошибка при загрузке лабораторных работ. Попробуйте снова')
         }).then((data) => setCourseLabs(data))
     }, [params.id])
 
@@ -23,34 +27,31 @@ export const CourseLabs = ({ courses }) => {
 
     return (
         <>
-            <Routes>
-                <Route path="labs/:id" element={<LabGroups />} />
-            </Routes>
-
-            {currentCourse && courseLabs &&
+            {currentCourse &&
                 <>
                     <Typography variant="h4" sx={{ mb: 3 }}>{currentCourse.name}</Typography>
                     <Typography variant="h5" sx={{ mb: 2 }}>Лабораторные работы: </Typography>
-
-                    {courseLabs.map(lab => (
+                    {courseLabs && (
                         <>
-                            <Accordion>
-                                <AccordionSummary>
-                                    <Box sx={{ flexGrow: 1 }}>
-                                        <Typography variant="h6">{lab.name}</Typography>
-                                    </Box>
-                                    <Button component={Link} to={`/labs/${lab.id}`}>Перейти</Button>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    <Typography variant="body1">{lab.task}</Typography>
-                                </AccordionDetails>
-                            </Accordion>
+                            {courseLabs.map(lab => (
+                                <Accordion key={lab.id}>
+                                    <AccordionSummary>
+                                        <Box sx={{ flexGrow: 1 }}>
+                                            <Typography variant="h6">{lab.name}</Typography>
+                                        </Box>
+                                        <Button component={Link} to={userContext.user.student
+                                            ? `/labs/${lab.id}`
+                                            : (userContext.user.lecturer && `/lab-groups/${lab.id}`)}>Перейти</Button>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        <Typography variant="body1">{lab.task}</Typography>
+                                    </AccordionDetails>
+                                </Accordion>
+                            ))}
                         </>
-                    ))}
+                    )}
                 </>
             }
         </>
     );
 }
-
-// <Link to={`/courses/${params.id}/labs/${lab.id}`}>Препод {lab.name}</Link>

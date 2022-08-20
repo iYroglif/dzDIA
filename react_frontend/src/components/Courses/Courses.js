@@ -1,14 +1,9 @@
-import { Link, Routes, Route } from 'react-router-dom';
-import { CourseLabs } from "./CourseLabs";
+import { Link } from 'react-router-dom';
 import { Grid, Card, CardContent, CardActions, Typography, Button, Box } from '@mui/material';
 
 export const Courses = ({ courses }) => {
     return (
         <>
-            <Routes>
-                <Route path=":id/*" element={<CourseLabs courses={courses} />} />
-            </Routes>
-
             <Typography variant="h4" sx={{ mb: 3 }}>Мои курсы:</Typography>
 
             <Grid container spacing={3}>
