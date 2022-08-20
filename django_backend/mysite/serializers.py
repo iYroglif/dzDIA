@@ -1,12 +1,28 @@
+from dataclasses import field
 from django.contrib.auth.models import User
-from mysite.models import Student, Student_Lab_Course, Course_Lab, Course, Group
+from mysite.models import Student, Student_Lab_Course, Course_Lab, Course, Group, Lecturer
 from rest_framework import serializers
 
 
-class CurrentUserName(serializers.ModelSerializer):
+class StudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ['id']
+
+
+class LecturerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lecturer
+        fields = ['id']
+
+
+class CurrentUser(serializers.ModelSerializer):
+    student = StudentSerializer()
+    lecturer = LecturerSerializer()
+
     class Meta:
         model = User
-        fields = ['username']
+        fields = ['username', 'student', 'lecturer']
 
 
 class StudentCoursesSerializer(serializers.ModelSerializer):
@@ -15,113 +31,80 @@ class StudentCoursesSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'description']
 
 
-class StudentCourseLabsSerializer(serializers.ModelSerializer):
+class CourseLabsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course_Lab
         fields = ['id', 'name', 'task']
 
 
+class StudentCourseLabSerializerCourse(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = ['name']
+
+
 class StudentCourseLabSerializerCourseLab(serializers.ModelSerializer):
-    course = StudentCoursesSerializer()
+    course = StudentCourseLabSerializerCourse()
 
     class Meta:
         model = Course_Lab
         fields = ['name', 'task', 'course']
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['last_name', 'first_name']
+
+
+class StudentCourseLabSerializerStudent(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = Student
+        fields = ['patronymic', 'user']
+
+
 class StudentCourseLabSerializer(serializers.ModelSerializer):
     course_lab = StudentCourseLabSerializerCourseLab()
+    student = StudentCourseLabSerializerStudent()
 
     class Meta:
         model = Student_Lab_Course
-        fields = '__all__'
+        fields = ['id', 'course_lab', 'report', 'issued',
+                  'completed', 'changed', 'score', 'comment', 'student']
+
+
+class GroupStudentLabGroupsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ['id', 'name']
+
+
+class UserStudentLabGroupsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name']
+
+
+class StudentLabGroupsSerializer(serializers.ModelSerializer):
+    user = UserStudentLabGroupsSerializer()
+    group = GroupStudentLabGroupsSerializer()
+
+    class Meta:
+        model = Student
+        fields = ['user', 'group', 'patronymic']
 
 
 class LabGroupsSerializer(serializers.ModelSerializer):
-    students = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Group
-        fields = ['id', 'name', 'students']
-
-    @staticmethod
-    def get_students(obj):
-        return StudentSerializer(Student.objects.filter(group_id=obj.pk), many=True).data
-
-
-class StudentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Student
-        fields = '__all__'
-
-
-class CourseSerializer(serializers.HyperlinkedModelSerializer):
-
-    #course_labs = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Course
-        fields = '__all__'
-
-    # @staticmethod
-    # def get_course_labs(obj):
-    #    return Course_LabSerializer(Course_Lab.objects.filter(course=obj), many=True).data
-
-
-class StudentDetailSerializer(serializers.ModelSerializer):
-
-    labs = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Student
-        fields = '__all__'
-
-    @staticmethod
-    def get_labs(obj):
-        return Student_Lab_CourseSerializer(Student_Lab_Course.objects.filter(student=obj), many=True).data
-
-
-class TempCourseSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Course
-        fields = '__all__'
-
-
-class TempStudent_Lab_CourseSerializer(serializers.ModelSerializer):
-
-    student = StudentSerializer()
+    student = StudentLabGroupsSerializer()
 
     class Meta:
         model = Student_Lab_Course
-        fields = '__all__'
+        fields = ['id', 'student', 'completed', 'changed']
 
 
-class Course_LabSerializer(serializers.ModelSerializer):
-
-    course = TempCourseSerializer()
-    labs = serializers.SerializerMethodField()
-
+class CourseLabSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course_Lab
-        fields = '__all__'
-
-    @staticmethod
-    def get_labs(obj):
-        return TempStudent_Lab_CourseSerializer(Student_Lab_Course.objects.filter(course_lab=obj), many=True).data
-
-
-class Student_Lab_CourseSerializer(serializers.ModelSerializer):
-
-    course_lab = Course_LabSerializer()
-
-    class Meta:
-        model = Student_Lab_Course
-        fields = '__all__'
-
-
-class DefStudent_Lab_CourseSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Student_Lab_Course
-        fields = '__all__'
+        fields = ['name', 'course']
