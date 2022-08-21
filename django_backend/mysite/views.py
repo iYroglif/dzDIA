@@ -46,14 +46,14 @@ class StudentCourses(APIView):
 
     def get(self, request):
         if request.user.groups.filter(name='Преподаватели').exists():
-            courses = Course.objects.raw('''SELECT *
+            courses = Course.objects.raw('''SELECT mysite_course.id, mysite_course.name, mysite_course.description, COUNT(mysite_course.id)
                                         FROM ((mysite_course
                                         INNER JOIN mysite_lecturer_courses ON mysite_lecturer_courses.course_id = mysite_course.id)
                                         INNER JOIN mysite_lecturer ON mysite_lecturer.id = mysite_lecturer_courses.lecturer_id)
                                         WHERE mysite_lecturer.user_id = {}
                                         GROUP BY mysite_course.id'''.format(request.user.pk))
         else:
-            courses = Course.objects.raw('''SELECT *
+            courses = Course.objects.raw('''SELECT mysite_course.id, mysite_course.name, mysite_course.description, COUNT(mysite_course.id)
                                         FROM (((mysite_course
                                         INNER JOIN mysite_course_lab ON mysite_course_lab.course_id = mysite_course.id)
                                         INNER JOIN mysite_student_lab_course ON mysite_student_lab_course.course_lab_id = mysite_course_lab.id)

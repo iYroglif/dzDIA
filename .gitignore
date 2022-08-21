@@ -1,14 +1,21 @@
 venv/
 __pycache__/
 
-nginx-1.22.0/conf/*
+nginx/conf/*
 !nginx.conf
-nginx-1.22.0/contrib
-nginx-1.22.0/docs
-nginx-1.22.0/html
-nginx-1.22.0/logs
-nginx-1.22.0/temp
+!nginx_dev.conf
+nginx/contrib
+nginx/docs
+nginx/html
+nginx/logs
+nginx/temp
 nginx.exe
 
-passwords.txt
 django_backend/files/
+django_backend/static/
+
+.env
+
+data/db
+
+passwords.txt
