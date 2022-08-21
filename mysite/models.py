@@ -1,10 +1,12 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 
 
 class Course(models.Model):
     name = models.CharField('Название', max_length=100)
+    description = models.TextField('Описание', blank=True, default='')
 
     class Meta:
         verbose_name = 'Курс'
@@ -12,6 +14,21 @@ class Course(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Lecturer(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    patronymic = models.CharField(
+        'Отчество', max_length=25, blank=True, default='')
+    courses = models.ManyToManyField(Course)
+
+    class Meta:
+        verbose_name = 'Преподаватель'
+        verbose_name_plural = 'Преподаватели'
+
+    def __str__(self):
+        return self.user.last_name + " " + self.user.first_name + " " + self.patronymic
 
 
 class Course_Lab(models.Model):
@@ -27,13 +44,23 @@ class Course_Lab(models.Model):
         return self.course.name + " " + self.name
 
 
+class Group(models.Model):
+    name = models.CharField('Группа', max_length=10)
+
+    class Meta:
+        verbose_name = 'Группа'
+        verbose_name_plural = 'Группы'
+
+    def __str__(self):
+        return self.name
+
+
 class Student(models.Model):
-    surname = models.CharField('Фамилия', max_length=25)
-    name = models.CharField('Имя', max_length=25)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     patronymic = models.CharField(
-        'Отчество', max_length=25, blank=True, null=True)
-    course = models.PositiveSmallIntegerField('Курс')
-    group = models.CharField('Группа', max_length=10)
+        'Отчество', max_length=25, blank=True, default='')
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
     labs = models.ManyToManyField(Course_Lab, through='Student_Lab_Course')
 
     class Meta:
@@ -41,7 +68,7 @@ class Student(models.Model):
         verbose_name_plural = 'Студенты'
 
     def __str__(self):
-        return self.group + " " + self.surname + " " + self.name + " " + self.patronymic
+        return self.group.name + " " + self.user.last_name + " " + self.user.first_name + " " + self.patronymic
 
 
 class Student_Lab_Course(models.Model):
@@ -51,10 +78,12 @@ class Student_Lab_Course(models.Model):
     issued = models.DateTimeField('Выдана', auto_now_add=True)
     completed = models.DateTimeField('Выполнена', blank=True, null=True)
     changed = models.DateTimeField('Изменена', auto_now=True, null=True)
+    score = models.PositiveSmallIntegerField('Оценка', null=True, default=0)
+    comment = models.TextField('Комментарий', blank=True, default='')
 
     class Meta:
         verbose_name = 'Лабораторная работа студента'
         verbose_name_plural = 'Лабораторные работы студентов'
 
     def __str__(self):
-        return self.course_lab.name + " " + self.student.surname + " " + self.student.name + " " + self.student.patronymic
+        return self.course_lab.name + " " + self.student.user.last_name + " " + self.student.user.first_name + " " + self.student.patronymic
