@@ -1,4 +1,22 @@
-ER-диаграмма:
+МГТУ им. Н.Э. Баумана Кафедра ИУ5
+
+# Домашнее задание по курсу "Разработка Интернет-Приложений"
+
+> Терентьев В.О. Группа ИУ5-53Б
+
+- Создание прототипа веб-приложения на основе базы данных с использованием фреймворка Django
+
+## Стек:
+
+- Frontend: React JS, React Router, Create React App, Material UI
+- Backend: Django, Django REST framework
+- Deployment: Docker
+- Web server: Nginx
+- WSGI server: Gunicorn
+- DB: PostgreSQL
+- Host: Heroku
+
+## ER-диаграмма:
 ```mermaid
 erDiagram
     Course {
@@ -10,6 +28,11 @@ erDiagram
         integer id
         varchar25 patronymic
         integer user_id
+    }
+    lecturer_courses {
+        integer id
+        bigint lecturer_id
+        bigint course_id
     }
     Course_Lab {
         integer id
@@ -51,7 +74,8 @@ erDiagram
         datetime date_joined
         varchar150 first_name
     }
-    Lecturer ||--o{ Course : teaches
+    Lecturer ||--o{ lecturer_courses : teaches
+    Course ||--o{ lecturer_courses : teaches
     Course ||--o{ Course_Lab : contains
     Group ||--o{ Student : contains
     Student ||--o{ Student_Lab_Course : has
