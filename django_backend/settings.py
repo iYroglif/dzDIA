@@ -29,7 +29,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['h0mew0rk.herokuapp.com']
 
-CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS = ['h0mew0rk.herokuapp.com']
 
 # Application definition
 
