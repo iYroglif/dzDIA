@@ -71,7 +71,7 @@ export const LabGroups = () => {
                                 <div key={student.lab_id}>
                                     <ListItem>
                                         <Box sx={{ flexGrow: 1 }}>
-                                            <Typography variant="body1">{student.first_name} {student.last_name} {student.patronymic}</Typography>
+                                            <Typography variant="body1">{student.last_name} {student.first_name} {student.patronymic}</Typography>
                                         </Box>
                                         <Typography variant="body2">{student.status}</Typography>
                                         <Button component={Link} to={`/labs/${student.lab_id}`}>Перейти</Button>
