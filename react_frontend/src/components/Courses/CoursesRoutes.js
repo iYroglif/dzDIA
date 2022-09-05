@@ -34,8 +34,8 @@ export const CoursesRoutes = () => {
                 )
                 : (
                     <Typography>
-                        <Link to='/login/'>Войдите </Link>
-                        в свой аккаунт чтобы посмотреть курсы
+                        <Link to='/login/'>Войдите</Link>
+                        <> в свой аккаунт чтобы посмотреть курсы</>
                     </Typography>
                 )
             }
