@@ -1,12 +1,22 @@
 {
   "files": {
-    "main.js": "/static/js/main.931ec06c.js",
+    "main.js": "/static/js/main.bb509141.js",
     "static/js/787.f3219e65.chunk.js": "/static/js/787.f3219e65.chunk.js",
+    "static/media/course-labs-dark.png": "/static/media/course-labs-dark.09002f0d13a813ee79a0.png",
+    "static/media/course-labs-light.png": "/static/media/course-labs-light.8ffe1dfb93e1afedaa80.png",
+    "static/media/lab-groups-dark.png": "/static/media/lab-groups-dark.70a9f530aa3c23612856.png",
+    "static/media/student-lab-light.png": "/static/media/student-lab-light.8c3403d76d1e21998c5b.png",
+    "static/media/lab-groups-light.png": "/static/media/lab-groups-light.fdd4065b379248a50578.png",
+    "static/media/student-lab-dark.png": "/static/media/student-lab-dark.406ed55b2307e8ce8c32.png",
+    "static/media/courses-dark.png": "/static/media/courses-dark.feee688aa6eba077524d.png",
+    "static/media/courses-light.png": "/static/media/courses-light.2a4f554d39a5adffef86.png",
+    "static/media/teacher-student-lab-light.png": "/static/media/teacher-student-lab-light.c1f24100ebe8e90e1135.png",
+    "static/media/teacher-student-lab-dark.png": "/static/media/teacher-student-lab-dark.9edf54126752008e8806.png",
     "index.html": "/index.html",
-    "main.931ec06c.js.map": "/static/js/main.931ec06c.js.map",
+    "main.bb509141.js.map": "/static/js/main.bb509141.js.map",
     "787.f3219e65.chunk.js.map": "/static/js/787.f3219e65.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.931ec06c.js"
+    "static/js/main.bb509141.js"
   ]
 }
