@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { UserContext } from '../UserContext';
-import { FormControl, InputLabel, Input, InputAdornment, IconButton, Stack, Typography, Button, Box } from '@mui/material';
+import { FormControl, InputLabel, Input, InputAdornment, IconButton, Stack, Typography, Button, Box, Grid } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export const Login = () => {
@@ -34,37 +34,39 @@ export const Login = () => {
     }
 
     return (
-        <Box maxWidth={450}>
-            <Typography variant="h4">Вход</Typography>
-            <form onSubmit={handleSubmit}>
-                <Stack spacing={5} paddingTop={3}>
-                    <FormControl>
-                        <InputLabel htmlFor="username">Имя пользователя</InputLabel>
-                        <Input id="username" type='text' value={login.username} onChange={(e) => { setLogin({ password: login.password, username: e.target.value }) }} />
-                    </FormControl>
-                    <FormControl>
-                        <InputLabel htmlFor="password">Пароль</InputLabel>
-                        <Input
-                            id="password"
-                            type={showPassword ? 'text' : 'password'}
-                            value={login.password}
-                            onChange={(e) => { setLogin({ password: e.target.value, username: login.username }) }}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        onClick={() => setShowPassword(!showPassword)}
-                                        onMouseDown={(e) => e.preventDefault()}>
-                                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                        />
-                    </FormControl>
-                    <FormControl>
-                        <Button variant="outlined" type="submit">Войти</Button>
-                    </FormControl>
-                </Stack>
-            </form>
+        <Box display="flex" justifyContent="center">
+            <Box minWidth={300} textAlign="center">
+                <Typography variant="h4">Вход</Typography>
+                <form onSubmit={handleSubmit}>
+                    <Stack spacing={5} paddingTop={3}>
+                        <FormControl>
+                            <InputLabel htmlFor="username">Имя пользователя</InputLabel>
+                            <Input id="username" type='text' value={login.username} onChange={(e) => { setLogin({ password: login.password, username: e.target.value }) }} />
+                        </FormControl>
+                        <FormControl>
+                            <InputLabel htmlFor="password">Пароль</InputLabel>
+                            <Input
+                                id="password"
+                                type={showPassword ? 'text' : 'password'}
+                                value={login.password}
+                                onChange={(e) => { setLogin({ password: e.target.value, username: login.username }) }}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            onClick={() => setShowPassword(!showPassword)}
+                                            onMouseDown={(e) => e.preventDefault()}>
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <Button variant="outlined" type="submit">Войти</Button>
+                        </FormControl>
+                    </Stack>
+                </form>
+            </Box>
         </Box>
     )
 }
