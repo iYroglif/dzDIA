@@ -11,6 +11,7 @@ import { Container, Box } from '@mui/material';
 import { UserContext } from './UserContext';
 import { LabGroups } from "./components/Courses/LabGroups";
 import { UserProfile } from "./components/UserProfile";
+import { SignIn } from './components/SignIn';
 
 export default function App() {
   const [user, setUser] = useState(null)
@@ -44,10 +45,11 @@ export default function App() {
             <Routes>
               <Route path="/" element={<StartPage />} />
               <Route path="login" element={<Login />} />
-              <Route path="courses/*" element={<CoursesRoutes />} />
-              <Route path="labs/:id" element={<LabDetail />} />
-              <Route path="lab-groups/:id" element={<LabGroups />} />
-              <Route path="profile" element={<UserProfile />} />
+
+              <Route path="courses/*" element={userContext.user ? <CoursesRoutes /> : <SignIn />} />
+              <Route path="labs/:id" element={userContext.user ? <LabDetail /> : <SignIn />} />
+              <Route path="lab-groups/:id" element={userContext.user ? <LabGroups /> : <SignIn />} />
+              <Route path="profile" element={userContext.user ? <UserProfile /> : <SignIn />} />
 
               <Route path="*" element={<NotFound />} />
             </Routes>

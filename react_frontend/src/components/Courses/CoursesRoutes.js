@@ -1,13 +1,10 @@
 import { useState, useEffect, useContext } from "react"
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Courses } from "./Courses";
 import { CourseLabs } from "./CourseLabs";
-import { UserContext } from "../../UserContext";
-import { Typography } from "@mui/material";
 
 export const CoursesRoutes = () => {
     const [courses, setCourses] = useState(null)
-    const userContext = useContext(UserContext);
 
     useEffect(() => {
         fetch('/api/courses/').then(response => {
@@ -21,24 +18,13 @@ export const CoursesRoutes = () => {
 
     return (
         <>
-            {userContext.user
-                ? (
-                    <>
-                        {courses &&
-                            <Routes>
-                                <Route path="/" element={<Courses courses={courses} />} />
-                                <Route path=":id/*" element={<CourseLabs courses={courses} />} />
-                            </Routes>
-                        }
-                    </>
-                )
-                : (
-                    <Typography>
-                        <Link to='/login/'>Войдите</Link>
-                        <> в свой аккаунт чтобы посмотреть курсы</>
-                    </Typography>
-                )
+            {courses &&
+                <Routes>
+                    <Route path="/" element={<Courses courses={courses} />} />
+                    <Route path=":id/*" element={<CourseLabs courses={courses} />} />
+                </Routes>
             }
         </>
+
     )
 }
