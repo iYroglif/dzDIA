@@ -16,6 +16,16 @@
 - DB: PostgreSQL
 - Host: Heroku
 
+## Скрины
+
+![](./imgs/home.jpg)
+
+![](./imgs/course_labs.jpg)
+
+![](./imgs/lab.jpg)
+
+![](./imgs//groups_labs.jpg)
+
 ## ER-диаграмма:
 ```mermaid
 erDiagram
@@ -83,3 +93,7 @@ erDiagram
     auth_user ||--|| Lecturer : is
     auth_user ||--|| Student : is
 ```
+
+### Отчет:
+
+[pdf](homework.pdf)
