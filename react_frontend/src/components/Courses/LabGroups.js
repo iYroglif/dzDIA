@@ -22,7 +22,7 @@ export const LabGroups = () => {
         }).then((data) => {
             let x = []
             data.forEach(element => {
-                let i = x.findIndex((e) => e.group.id == element.student.group.id)
+                let i = x.findIndex((e) => e.group.id === element.student.group.id)
                 let status
                 if (element.completed == null)
                     status = 'Не выполнена'
@@ -30,7 +30,7 @@ export const LabGroups = () => {
                     status = 'Не проверена'
                 else if (element.completed.split('.')[0] < element.changed.split('.')[0])
                     status = 'Проверена'
-                if (i != -1) {
+                if (i !== -1) {
                     x[i].students.push({
                         first_name: element.student.user.first_name,
                         last_name: element.student.user.last_name,
@@ -56,12 +56,12 @@ export const LabGroups = () => {
 
     return (
         <>
-            <Typography variant="h4" sx={{ mb: 3 }}>Лабораторная работа: {courseLab.name}</Typography>
-            <Typography variant="h5" sx={{ mb: 3 }}>Группы:</Typography>
+            <Typography variant="h4" component="h2" sx={{ mb: 3 }}>Лабораторная работа: {courseLab.name}</Typography>
+            <Typography variant="h5" component="h3" sx={{ mb: 3 }}>Группы:</Typography>
             {groups.map((element) => (
                 <Accordion key={element.group.id}>
                     <AccordionSummary>
-                        <Typography variant="h6">Группа {element.group.name}</Typography>
+                        <Typography variant="h6" component="h4">Группа {element.group.name}</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography variant="body1">Студенты:</Typography>

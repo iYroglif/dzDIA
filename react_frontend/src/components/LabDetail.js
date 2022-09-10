@@ -90,12 +90,12 @@ export const LabDetail = () => {
                 <List>
                     <ListItem>
                         <ListItemText>
-                            <Typography variant="h4">Лабораторная работа: {lab.course_lab.name}</Typography>
+                            <Typography variant="h4" component="h2">Лабораторная работа: {lab.course_lab.name}</Typography>
                         </ListItemText>
                     </ListItem>
                     <ListItem>
                         <ListItemText>
-                            <Typography variant="h5">Курс: {lab.course_lab.course.name}</Typography>
+                            <Typography variant="h5" component="h3">Курс: {lab.course_lab.course.name}</Typography>
                         </ListItemText>
                     </ListItem>
                     <ListItem>

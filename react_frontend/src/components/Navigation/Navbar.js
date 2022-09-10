@@ -18,7 +18,7 @@ export const Navbar = ({ themeMode, setThemeMode }) => {
                         <Button color='inherit' component={LinkRouter} to="/courses">Мои курсы</Button>
                     </Box>
 
-                    <IconButton onClick={() => setThemeMode(themeMode === 'dark' ? 'light' : 'dark')}>
+                    <IconButton onClick={() => setThemeMode(themeMode === 'dark' ? 'light' : 'dark')} title="Переключить тему">
                         {themeMode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
                     </IconButton>
                     <UserLogin />

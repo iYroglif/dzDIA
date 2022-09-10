@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { UserContext } from '../UserContext';
-import { FormControl, InputLabel, Input, InputAdornment, IconButton, Stack, Typography, Button, Box, Grid } from '@mui/material';
+import { FormControl, InputLabel, Input, InputAdornment, IconButton, Stack, Typography, Button, Box } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export const Login = () => {
@@ -36,7 +36,7 @@ export const Login = () => {
     return (
         <Box display="flex" justifyContent="center">
             <Box minWidth={300} textAlign="center">
-                <Typography variant="h4">Вход</Typography>
+                <Typography variant="h4" component="h2">Вход</Typography>
                 <form onSubmit={handleSubmit}>
                     <Stack spacing={5} paddingTop={3}>
                         <FormControl>

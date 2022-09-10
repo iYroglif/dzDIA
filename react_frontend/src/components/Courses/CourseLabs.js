@@ -22,22 +22,22 @@ export const CourseLabs = ({ courses }) => {
 
     useEffect(() => {
         if (params.id != null)
-            setCurrentCourse(courses.find((item) => item.id == params.id))
+            setCurrentCourse(courses.find((item) => item.id === params.id))
     }, [courses, params.id])
 
     return (
         <>
             {currentCourse &&
                 <>
-                    <Typography variant="h4" sx={{ mb: 3 }}>{currentCourse.name}</Typography>
-                    <Typography variant="h5" sx={{ mb: 2 }}>Лабораторные работы: </Typography>
+                    <Typography variant="h4" component="h2" sx={{ mb: 3 }}>{currentCourse.name}</Typography>
+                    <Typography variant="h5" component="h3" sx={{ mb: 2 }}>Лабораторные работы: </Typography>
                     {courseLabs && (
                         <>
                             {courseLabs.map(lab => (
                                 <Accordion key={lab.id}>
                                     <AccordionSummary>
                                         <Box sx={{ flexGrow: 1 }}>
-                                            <Typography variant="h6">{lab.name}</Typography>
+                                            <Typography variant="h6" component="h4">{lab.name}</Typography>
                                         </Box>
                                         <Button component={Link} to={userContext.user.student
                                             ? `/labs/${lab.id}`
