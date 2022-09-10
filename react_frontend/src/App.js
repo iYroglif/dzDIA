@@ -38,7 +38,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box bgcolor="background.default" color="text.primary" minHeight={"100%"}>
+      <Box bgcolor="background.default" color="text.primary" position="absolute" minHeight="100%" minWidth="100%">
         <UserContext.Provider value={userContext}>
           <Navbar themeMode={themeMode} setThemeMode={setThemeMode} />
           <Container sx={{ pt: 10 }}>
