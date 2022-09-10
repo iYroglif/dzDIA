@@ -22,7 +22,7 @@ export const CourseLabs = ({ courses }) => {
 
     useEffect(() => {
         if (params.id != null)
-            setCurrentCourse(courses.find((item) => item.id === params.id))
+            setCurrentCourse(courses.find((item) => item.id === Number(params.id)))
     }, [courses, params.id])
 
     return (
