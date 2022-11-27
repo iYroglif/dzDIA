@@ -1,13 +1,14 @@
-import { useContext } from 'react';
-import { UserContext } from '../UserContext';
-import { Typography } from '@mui/material';
+import { useContext } from "react";
+import { UserContext } from "../UserContext";
+import { Typography } from "@mui/material";
 
 export const UserProfile = () => {
-    const userContext = useContext(UserContext);
+  const userContext = useContext(UserContext);
 
-    return (
-        <>
-            <Typography>TODO: Профиль</Typography>
-        </>
-    )
-}
+  return (
+    <>
+      <Typography>TODO: Профиль</Typography>
+      <Typography>{userContext.user.username}</Typography>
+    </>
+  );
+};
