@@ -1,22 +1,15 @@
-import {
-  Typography,
-  Card,
-  CardMedia,
-  CardContent,
-  Grid,
-  Box,
-} from "@mui/material";
+import { Typography, Card, CardMedia, CardContent, Grid, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import courses_dark from "./courses-dark.png";
-import courses_light from "./courses-light.png";
-import course_labs_dark from "./course-labs-dark.png";
-import course_labs_light from "./course-labs-light.png";
-import student_lab_dark from "./student-lab-dark.png";
-import student_lab_light from "./student-lab-light.png";
-import teacher_student_lab_dark from "./teacher-student-lab-dark.png";
-import teacher_student_lab_light from "./teacher-student-lab-light.png";
-import lab_groups_dark from "./lab-groups-dark.png";
-import lab_groups_light from "./lab-groups-light.png";
+import courses_dark from "./images/courses-dark.png";
+import courses_light from "./images/courses-light.png";
+import course_labs_dark from "./images/course-labs-dark.png";
+import course_labs_light from "./images/course-labs-light.png";
+import student_lab_dark from "./images/student-lab-dark.png";
+import student_lab_light from "./images/student-lab-light.png";
+import teacher_student_lab_dark from "./images/teacher-student-lab-dark.png";
+import teacher_student_lab_light from "./images/teacher-student-lab-light.png";
+import lab_groups_dark from "./images/lab-groups-dark.png";
+import lab_groups_light from "./images/lab-groups-light.png";
 
 export const StartPage = () => {
   const theme = useTheme();
@@ -34,8 +27,7 @@ export const StartPage = () => {
       width: 650,
       height: 301,
       alt: "Пример лабораторных работ курса",
-      image:
-        theme.palette.mode === "dark" ? course_labs_dark : course_labs_light,
+      image: theme.palette.mode === "dark" ? course_labs_dark : course_labs_light,
       title: "Лабораторные работы курса",
       description: "Просматривайте лабораторные работы своих курсов",
     },
@@ -43,11 +35,9 @@ export const StartPage = () => {
       width: 400,
       height: 428,
       alt: "Пример лабораторной работы",
-      image:
-        theme.palette.mode === "dark" ? student_lab_dark : student_lab_light,
+      image: theme.palette.mode === "dark" ? student_lab_dark : student_lab_light,
       title: "Лабораторные работы",
-      description:
-        "Загружайте отчеты по лабораторным работам. Узнавайте свои баллы. Смотрите комментарии преподавателей",
+      description: "Загружайте отчеты по лабораторным работам. Узнавайте свои баллы. Смотрите комментарии преподавателей",
     },
     {
       width: 650,
@@ -55,52 +45,31 @@ export const StartPage = () => {
       alt: "Пример лабораторных работ студентов",
       image: theme.palette.mode === "dark" ? lab_groups_dark : lab_groups_light,
       title: "Лабораторные работы студентов",
-      description:
-        "Просматривайте лабораторные работы студентов по группам и их статус выполнения",
+      description: "Просматривайте лабораторные работы студентов по группам и их статус выполнения",
     },
     {
       width: 650,
       height: 402,
       alt: "Пример лабораторной работы",
-      image:
-        theme.palette.mode === "dark"
-          ? teacher_student_lab_dark
-          : teacher_student_lab_light,
+      image: theme.palette.mode === "dark" ? teacher_student_lab_dark : teacher_student_lab_light,
       title: "Лабораторные работы",
-      description:
-        "Смотрите отчеты студентов. Выставляйте баллы и пишите замечания",
+      description: "Смотрите отчеты студентов. Выставляйте баллы и пишите замечания",
     },
   ].map(({ width, height, alt, image, title, description }) => (
     <Card sx={{ maxWidth: "fit-content" }}>
-      <CardMedia
-        sx={{ padding: 1, width, height }}
-        component="img"
-        alt={alt}
-        image={image}
-      />
+      <CardMedia sx={{ padding: 1, width, height }} component="img" alt={alt} image={image} />
+
       <CardContent>
         <Typography gutterBottom variant="h5" component="h2">
           {title}
         </Typography>
+
         <Typography variant="body2" color="text.secondary">
           {description}
         </Typography>
       </CardContent>
     </Card>
   ));
-
-  const accounts = [
-    {
-      title: "Студент",
-      login: "Логин: student",
-      password: "Пароль: 5r@M-C_Rx2VhYk_",
-    },
-    {
-      title: "Преподаватель",
-      login: "Логин: teacher",
-      password: "Пароль: Y.2Sj6ZN2mczdbb",
-    },
-  ];
 
   return (
     <Grid container direction="column" spacing={3}>
@@ -132,7 +101,18 @@ export const StartPage = () => {
             </Grid>
 
             <Grid item container direction="row" spacing={2}>
-              {accounts.map(({ title, login, password }) => (
+              {[
+                {
+                  title: "Студент",
+                  login: "Логин: student",
+                  password: "Пароль: 5r@M-C_Rx2VhYk_",
+                },
+                {
+                  title: "Преподаватель",
+                  login: "Логин: teacher",
+                  password: "Пароль: Y.2Sj6ZN2mczdbb",
+                },
+              ].map(({ title, login, password }) => (
                 <Grid item>
                   <Card>
                     <CardContent>

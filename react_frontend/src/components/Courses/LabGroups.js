@@ -1,24 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import {
-  List,
-  ListItem,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Typography,
-  Box,
-  Button,
-  Divider,
-} from "@mui/material";
+import { List, ListItem, Accordion, AccordionSummary, AccordionDetails, Typography, Box, Button, Divider } from "@mui/material";
+import { courseLabURL, labGroupsURL } from "../../api/urls";
 
 export const LabGroups = () => {
-  const [courseLab, setCourseLab] = useState("");
+  const [courseLab, setCourseLab] = useState();
   const [groups, setGroups] = useState([]);
   const params = useParams();
 
   useEffect(() => {
-    fetch(`/api/course-lab/${params.id}`)
+    fetch(`${courseLabURL}/${params.id}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -28,7 +19,7 @@ export const LabGroups = () => {
   }, [params.id]);
 
   useEffect(() => {
-    fetch(`/api/lab-groups/${params.id}`)
+    fetch(`${labGroupsURL}/${params.id}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -40,7 +31,7 @@ export const LabGroups = () => {
         data.forEach((lab) => {
           let status;
 
-          if (lab.completed === null) {
+          if (!lab.completed) {
             status = "Не выполнена";
           } else if (lab.completed.split(".")[0] >= lab.changed.split(".")[0]) {
             status = "Не проверена";
@@ -80,7 +71,7 @@ export const LabGroups = () => {
   return (
     <>
       <Typography variant="h4" component="h2" sx={{ mb: 3 }}>
-        Лабораторная работа: {courseLab.name}
+        Лабораторная работа: {courseLab?.name}
       </Typography>
 
       <Typography variant="h5" component="h3" sx={{ mb: 3 }}>
@@ -105,8 +96,7 @@ export const LabGroups = () => {
                   <ListItem>
                     <Box sx={{ flexGrow: 1 }}>
                       <Typography variant="body1">
-                        {student.last_name} {student.first_name}{" "}
-                        {student.patronymic}
+                        {student.last_name} {student.first_name} {student.patronymic}
                       </Typography>
                     </Box>
 

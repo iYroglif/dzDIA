@@ -1,39 +1,29 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
-import {
-  Typography,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Button,
-  Box,
-} from "@mui/material";
+import { Typography, Accordion, AccordionSummary, AccordionDetails, Button, Box } from "@mui/material";
 import { UserContext } from "../../UserContext";
+import { courseLabsURL } from "../../api/urls";
 
 export const CourseLabs = ({ courses }) => {
-  const [courseLabs, setCourseLabs] = useState(null);
+  const [courseLabs, setCourseLabs] = useState();
   const params = useParams();
   const userContext = useContext(UserContext);
 
+  const currentCourse = params.id ? courses.find((item) => item.id === Number(params.id)) : -1;
+
   useEffect(() => {
-    fetch(`/api/course-labs/${params.id}`)
+    fetch(`${courseLabsURL}/${params.id}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
         }
         // @TODO обработка ошибки
         else {
-          alert(
-            "Произошла ошибка при загрузке лабораторных работ. Попробуйте снова"
-          );
+          alert("Произошла ошибка при загрузке лабораторных работ. Попробуйте снова");
         }
       })
       .then((data) => setCourseLabs(data));
   }, [params.id]);
-
-  const currentCourse = params.id
-    ? courses.find((item) => item.id === Number(params.id))
-    : -1;
 
   return (
     <>
@@ -44,7 +34,7 @@ export const CourseLabs = ({ courses }) => {
           </Typography>
 
           <Typography variant="h5" component="h3" sx={{ mb: 2 }}>
-            Лабораторные работы:{" "}
+            Лабораторные работы:
           </Typography>
 
           {courseLabs && (
@@ -60,11 +50,7 @@ export const CourseLabs = ({ courses }) => {
 
                     <Button
                       component={Link}
-                      to={
-                        userContext.user.student
-                          ? `/labs/${lab.id}`
-                          : userContext.user.lecturer && `/lab-groups/${lab.id}`
-                      }
+                      to={userContext.user.student ? `/labs/${lab.id}` : userContext.user.lecturer && `/lab-groups/${lab.id}`}
                     >
                       Перейти
                     </Button>

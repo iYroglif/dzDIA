@@ -8,7 +8,7 @@ export const UserProfile = () => {
   return (
     <>
       <Typography>TODO: Профиль</Typography>
-      <Typography>{userContext.user.username}</Typography>
+      <Typography>{userContext.user?.username}</Typography>
     </>
   );
 };

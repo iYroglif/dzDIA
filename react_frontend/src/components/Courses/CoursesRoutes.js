@@ -3,12 +3,13 @@ import { Routes, Route } from "react-router-dom";
 import { Courses } from "./Courses";
 import { CourseLabs } from "./CourseLabs";
 import { Typography } from "@mui/material";
+import { coursesURL } from "../../api/urls";
 
 export const CoursesRoutes = () => {
-  const [courses, setCourses] = useState(null);
+  const [courses, setCourses] = useState();
 
   useEffect(() => {
-    fetch("/api/courses/")
+    fetch(coursesURL)
       .then((response) => {
         if (response.ok) {
           return response.json();

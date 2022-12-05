@@ -1,13 +1,5 @@
 import { Link } from "react-router-dom";
-import {
-  Grid,
-  Card,
-  CardContent,
-  CardActions,
-  Typography,
-  Button,
-  Box,
-} from "@mui/material";
+import { Grid, Card, CardContent, CardActions, Typography, Button, Box } from "@mui/material";
 
 export const Courses = ({ courses }) => {
   return (
