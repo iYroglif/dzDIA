@@ -46,9 +46,9 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <Box bgcolor="background.default" color="text.primary" minWidth="100%" minHeight="100%">
         <UserContext.Provider value={userContext}>
-          <Navbar toggleThemeMode={toggleThemeMode} />
-          <Container sx={{ pt: 10 }}>
-            <Routes>
+          <Routes>
+            <Navbar toggleThemeMode={toggleThemeMode} />
+            <Container sx={{ pt: 10 }}>
               <Route path="/" element={<StartPage />} />
               <Route path="login" element={<Login />} />
 
@@ -58,8 +58,8 @@ export default function App() {
               <Route path="profile" element={userContext.user ? <UserProfile /> : <SignIn />} />
 
               <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Container>
+            </Container>
+          </Routes>
         </UserContext.Provider>
       </Box>
     </ThemeProvider>

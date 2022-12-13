@@ -10,7 +10,7 @@ export const UserLogin = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     fetch(logoutURL)
       .then((response) => {
         if (response.ok) {
@@ -22,7 +22,7 @@ export const UserLogin = () => {
         }
       })
       .then(() => navigate(0));
-  };
+  }, []);
 
   const handleAnchor = useCallback((event) => {
     setAnchorElement(event.currentTarget);

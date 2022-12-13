@@ -83,6 +83,8 @@ export const LabDetail = () => {
   }, []);
 
   useEffect(() => {
+    let ignore = false;
+
     fetch(`${labsURL}/${params.id}`)
       .then((response) => {
         if (response.ok) {
@@ -93,7 +95,15 @@ export const LabDetail = () => {
           alert("Произошла ошибка при загрузке лабораторной работы. Попробуйте снова");
         }
       })
-      .then((data) => setLab(data));
+      .then((data) => {
+        if (!ignore) {
+          setLab(data);
+        }
+      });
+
+    return () => {
+      ignore = true;
+    };
   }, [params.id]);
 
   useEffect(() => {

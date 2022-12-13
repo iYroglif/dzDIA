@@ -9,16 +9,28 @@ export const LabGroups = () => {
   const params = useParams();
 
   useEffect(() => {
+    let ignore = false;
+
     fetch(`${courseLabURL}/${params.id}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
         }
       })
-      .then((data) => setCourseLab(data));
+      .then((data) => {
+        if (!ignore) {
+          setCourseLab(data);
+        }
+      });
+
+    return () => {
+      ignore = true;
+    };
   }, [params.id]);
 
   useEffect(() => {
+    let ignore = false;
+
     fetch(`${labGroupsURL}/${params.id}`)
       .then((response) => {
         if (response.ok) {
@@ -64,8 +76,14 @@ export const LabGroups = () => {
           }
         });
 
-        setGroups([...map.values()]);
+        if (!ignore) {
+          setGroups([...map.values()]);
+        }
       });
+
+    return () => {
+      ignore = true;
+    };
   }, [params.id]);
 
   return (

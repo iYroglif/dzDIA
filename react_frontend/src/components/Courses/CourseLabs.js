@@ -12,6 +12,8 @@ export const CourseLabs = ({ courses }) => {
   const currentCourse = params.id ? courses.find((item) => item.id === Number(params.id)) : -1;
 
   useEffect(() => {
+    let ignore = false;
+
     fetch(`${courseLabsURL}/${params.id}`)
       .then((response) => {
         if (response.ok) {
@@ -22,7 +24,15 @@ export const CourseLabs = ({ courses }) => {
           alert("Произошла ошибка при загрузке лабораторных работ. Попробуйте снова");
         }
       })
-      .then((data) => setCourseLabs(data));
+      .then((data) => {
+        if (!ignore) {
+          setCourseLabs(data);
+        }
+      });
+
+    return () => {
+      ignore = true;
+    };
   }, [params.id]);
 
   return (
